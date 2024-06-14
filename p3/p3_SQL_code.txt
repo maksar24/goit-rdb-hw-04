@@ -1,0 +1,28 @@
+select 
+orders.id as order_id,
+customers.name as customer_name,
+orders.date as order_date,
+employees.first_name as employee_name,
+employees.last_name as employee_surname,
+products.name as product_name,
+categories.name as product_category,
+suppliers.name as product_supplier,
+order_details.quantity as products_quantity,
+shippers.name as shipper_company
+from 
+order_details
+inner join
+orders on orders.id = order_details.order_id
+inner join
+customers on customers.id = orders.customer_id
+inner join
+products on products.id = order_details.product_id
+inner join
+categories on categories.id = products.category_id
+inner join 
+suppliers on suppliers.id = products.supplier_id
+inner join
+shippers on shippers.id = orders.shipper_id
+inner join
+employees on employees.employee_id = orders.employee_id
+order by order_id;

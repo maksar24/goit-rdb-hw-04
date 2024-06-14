@@ -1,0 +1,163 @@
+*** part 1 ***
+
+select count(*) as total_rows from order_details
+inner join
+orders on orders.id = order_details.order_id
+inner join
+customers on customers.id = orders.customer_id
+inner join
+products on products.id = order_details.product_id
+inner join
+categories on categories.id = products.category_id
+inner join 
+suppliers on suppliers.id = products.supplier_id
+inner join
+shippers on shippers.id = orders.shipper_id
+inner join
+employees on employees.employee_id = orders.employee_id;
+
+*** part 2 ***
+
+select count(*) as total_rows from order_details
+inner join
+orders on orders.id = order_details.order_id
+right join
+customers on customers.id = orders.customer_id
+left join
+products on products.id = order_details.product_id
+inner join
+categories on categories.id = products.category_id
+right join 
+suppliers on suppliers.id = products.supplier_id
+inner join
+shippers on shippers.id = orders.shipper_id
+inner join
+employees on employees.employee_id = orders.employee_id;
+
+Замінивши деякі join на right та left я все-рівно отримав ту ж саму кількість рядкі, хоча при використанні цих варіантів join операції воно бере всі рядки з правої, або лівої татаблиць відповідно, а невідповідності виводяться значеннями NULL. Причиною цьому є те, що у всіх цих таблицях є відповідності, та відсутні значення NULL відповідно.
+
+*** part 3 ***
+
+select count(*) as total_rows from order_details
+inner join
+orders on orders.id = order_details.order_id
+right join
+customers on customers.id = orders.customer_id
+left join
+products on products.id = order_details.product_id
+inner join
+categories on categories.id = products.category_id
+right join 
+suppliers on suppliers.id = products.supplier_id
+inner join
+shippers on shippers.id = orders.shipper_id
+inner join
+employees on employees.employee_id = orders.employee_id
+where employees.employee_id > 3 and employees.employee_id <= 10;
+
+
+*** part 4 ***
+
+select
+categories.name as category_name,
+count(*) as total,
+avg(order_details.quantity) as average_quantity
+from 
+order_details
+inner join
+orders on orders.id = order_details.order_id
+right join
+customers on customers.id = orders.customer_id
+left join
+products on products.id = order_details.product_id
+inner join
+categories on categories.id = products.category_id
+right join 
+suppliers on suppliers.id = products.supplier_id
+inner join
+shippers on shippers.id = orders.shipper_id
+inner join
+employees on employees.employee_id = orders.employee_id
+where employees.employee_id > 3 and employees.employee_id <= 10
+group by category_name;
+
+*** part 5 ***
+
+select
+categories.name as category_name,
+count(*) as total,
+avg(order_details.quantity) as average_quantity
+from 
+order_details
+inner join
+orders on orders.id = order_details.order_id
+right join
+customers on customers.id = orders.customer_id
+left join
+products on products.id = order_details.product_id
+inner join
+categories on categories.id = products.category_id
+right join 
+suppliers on suppliers.id = products.supplier_id
+inner join
+shippers on shippers.id = orders.shipper_id
+inner join
+employees on employees.employee_id = orders.employee_id
+where employees.employee_id > 3 and employees.employee_id <= 10
+group by category_name
+having average_quantity > 21;
+
+*** part 6 ***
+
+select
+categories.name as category_name,
+count(*) as total,
+avg(order_details.quantity) as average_quantity
+from 
+order_details
+inner join
+orders on orders.id = order_details.order_id
+right join
+customers on customers.id = orders.customer_id
+left join
+products on products.id = order_details.product_id
+inner join
+categories on categories.id = products.category_id
+right join 
+suppliers on suppliers.id = products.supplier_id
+inner join
+shippers on shippers.id = orders.shipper_id
+inner join
+employees on employees.employee_id = orders.employee_id
+where employees.employee_id > 3 and employees.employee_id <= 10
+group by category_name
+having average_quantity > 21
+order by total desc;
+
+*** part 7 ***
+
+select
+categories.name as category_name,
+count(*) as total,
+avg(order_details.quantity) as average_quantity
+from 
+order_details
+inner join
+orders on orders.id = order_details.order_id
+right join
+customers on customers.id = orders.customer_id
+left join
+products on products.id = order_details.product_id
+inner join
+categories on categories.id = products.category_id
+right join 
+suppliers on suppliers.id = products.supplier_id
+inner join
+shippers on shippers.id = orders.shipper_id
+inner join
+employees on employees.employee_id = orders.employee_id
+where employees.employee_id > 3 and employees.employee_id <= 10
+group by category_name
+having average_quantity > 21
+order by total desc
+limit 4 offset 1;

@@ -1,0 +1,14 @@
+insert into authors (author_name)
+value ('Ivan Bahrianyi'), ('Taras Shevchenko');
+
+insert into genres (genre_name)
+value ('Novel'), ('Poem');
+
+insert into books (title, publication_year, author_id, genre_id)
+value ('Tyhrolovy', '1946', 14, 7), ('Haidamaki', '2001', 15, 8);
+
+insert into users (username, email)
+value ('Maksym', 'maksym@gmail.com'), ('Inna', 'inna@gmail.com');
+
+insert into borrowed_books (book_id, user_id, borrow_date, return_date)
+value (7, 3, '2024-06-07', '2024-06-12'), (8, 3, '2024-06-07', '2024-06-10');
